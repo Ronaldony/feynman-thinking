@@ -1,0 +1,45 @@
+name: Validate feynman-thinking
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  static-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate skill package and evaluation assets
+        run: python skills/feynman-thinking/scripts/validate_skill.py
+
+      - name: Verify A/B/C/D evaluation job assembly
+        run: |
+          python skills/feynman-thinking/scripts/run_evals.py \
+            --case software-perf-01 \
+            --conditions baseline generic feynman feynman-implicit \
+            --dry-run > /tmp/eval-plan.jsonl
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          rows = [json.loads(line) for line in Path('/tmp/eval-plan.jsonl').read_text(encoding='utf-8').splitlines()]
+          assert len(rows) == 4, rows
+          assert {row['condition'] for row in rows} == {
+              'baseline', 'generic', 'feynman', 'feynman-implicit'
+          }
+          assert sum(bool(row['skill_installed']) for row in rows) == 2
+          assert sum(bool(row['explicit_skill_invocation']) for row in rows) == 1
+          PY
+
+      - name: Ensure validation leaves the checkout clean
+        run: git diff --exit-code

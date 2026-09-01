@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+- 행동 비교에 `feynman-implicit` 조건을 추가해 스킬 설치 상태에서 원문만 전달했을 때의 암묵 발동과 행동 변화를 별도로 측정함.
+- 평가 실행 순서를 seed 기반으로 무작위화하고, 스킬 패키지 SHA-256·저장소 커밋·Codex CLI·Python·플랫폼 버전을 실행 메타데이터에 기록함.
+- 후보 과제를 `codex exec -`의 표준 입력으로 전달해 긴 프롬프트의 명령줄 길이와 쉘 인용 의존성을 줄임.
+- JSONL trace의 완료 이벤트만 집계하도록 보정하고 스킬 파일 참조 이벤트를 보조 신호로 기록함.
+- Codex 인증 없이 A/B/C/D 작업 행렬을 검사할 수 있는 `run_evals.py --dry-run`을 추가함.
+- 조건명을 숨긴 사람 검토용 `prepare_blind_review.py`와 0/1/2/NA 채점 패킷을 추가함.
+- validator가 모든 로컬 Markdown 링크, 중첩 metadata 버전, 평가 도메인·발동 모드, JSON Schema, Python 문법과 A/B/C/D dry-run 조립을 검사하도록 강화함.
+- GitHub Actions에서 정적 검증과 평가 행렬 조립을 자동으로 회귀 검사함.
+
 ## 0.4.0
 
 - 스킬의 목적을 “파인만과 동일한 내부 사고”가 아니라 외부에서 검증 가능한 연구 행동의 재현으로 명확히 제한함.

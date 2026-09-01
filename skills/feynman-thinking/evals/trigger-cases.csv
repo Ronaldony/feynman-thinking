@@ -1,15 +1,21 @@
-﻿prompt,should_trigger,reason
-이 설계안을 리처드 파인만 사고법으로 비판하고 가정·근사·실패 조건을 검증해,yes,explicit invocation and design validation
-이 연구 결과가 정말 인과관계인지 대안 가설과 판별 실험을 포함해 검토해,yes,causal hypothesis testing
-복잡한 모델을 다른 표현으로 바꾸고 정확식과 근사식을 구분해 설명해,yes,representation and approximation
-우리 제품 전략의 논리적 빈틈과 반대 증거를 찾아 견고하게 다시 설계해,yes,high-impact decision critique
-"이 알고리즘 성능 주장을 단위, 경계 사례, 기준 구현으로 검증해",yes,technical validation
-여러 논문을 종합하되 사실·추론·미확인과 불일치를 구분해,yes,research synthesis
-파인만의 말투로 이메일을 써줘,no,persona imitation only
-리처드 파인만의 생애를 5문장으로 요약해,no,biography
-이 문장을 한국어로 번역해,no,simple translation
-맞춤법만 고쳐줘,no,copy edit
-회의 제목을 세 개 추천해,no,low-risk ideation
-1부터 10까지 더해줘,no,simple deterministic task
-이 의료 의사결정을 파인만식으로 분석해,yes,explicit high-stakes; must add medical guardrails
-사회 정책을 물리학처럼 단순화해서 최적안을 골라줘,yes,should invoke and resist over-reduction
+id,prompt,should_trigger,mode,reason
+route-01,"$feynman-thinking을 사용해 이 설계안의 가정·근사·실패 조건을 검증해",yes,explicit,explicit skill invocation
+route-02,"이 연구 결과가 정말 인과관계인지 대안 가설과 판별 실험을 포함해 검토해",yes,implicit,causal hypothesis testing
+route-03,"복잡한 모델을 다른 표현으로 바꾸고 정확식과 근사식을 구분해 설명해",yes,implicit,representation and approximation
+route-04,"우리 제품 전략의 논리적 빈틈과 반대 증거를 찾아 견고하게 다시 설계해",yes,contextual,high-impact decision critique
+route-05,"이 알고리즘 성능 주장을 단위·경계 사례·기준 구현으로 검증해",yes,implicit,technical validation
+route-06,"여러 논문을 종합하되 사실·추론·미확인과 불일치를 구분해",yes,implicit,research synthesis
+route-07,"이 아키텍처에서 정확히 한 번 처리된다는 주장이 어떤 조건에서 깨지는지 찾아줘",yes,contextual,mechanism and failure-mode analysis
+route-08,"평균 정확도 96%라는 모델을 바로 배포해도 되는지 클래스 분포와 실패 입력까지 검토해",yes,contextual,metric claim and deployment decision
+route-09,"이 의료 의사결정을 파인만식으로 분석해",yes,explicit-high-risk,explicit high-stakes with domain guardrails
+route-10,"사회 정책을 물리학처럼 단순화해서 최적안을 골라줘",yes,adversarial,invoke and resist over-reduction
+route-11,"파인만의 말투로 이메일을 써줘",no,negative,persona imitation only
+route-12,"리처드 파인만의 생애를 5문장으로 요약해",no,negative,biography
+route-13,"이 문장을 한국어로 번역해",no,negative,simple translation
+route-14,"맞춤법만 고쳐줘",no,negative,copy edit
+route-15,"회의 제목을 세 개 추천해",no,negative,low-risk ideation
+route-16,"1부터 10까지 더해줘",no,negative,simple deterministic task
+route-17,"파인만의 유명한 인용문을 세 개 알려줘",no,negative,quotation request
+route-18,"이 표를 CSV 형식으로 바꿔줘",no,negative,format conversion
+route-19,"이 개념을 초등학생에게 설명해줘",no,adjacent,plain explanation without validation need
+route-20,"전문용어 없이 설명하되 빠진 인과 단계와 근사 범위도 확인해줘",yes,adjacent,explanation plus mechanism and approximation audit

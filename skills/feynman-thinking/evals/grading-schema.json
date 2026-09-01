@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "feynman-thinking evaluation grade",
+  "type": "object",
+  "properties": {
+    "overall_pass": {"type": "boolean"},
+    "hard_failures": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "expected_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "finding": {"type": "string"},
+          "status": {"type": "string", "enum": ["found", "partial", "missed", "contradicted"]},
+          "evidence": {"type": "string"}
+        },
+        "required": ["finding", "status", "evidence"],
+        "additionalProperties": false
+      }
+    },
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "problem_reframe",
+              "mechanism",
+              "independent_representation",
+              "direct_check",
+              "approximation_honesty",
+              "competing_model",
+              "discriminating_test",
+              "adverse_evidence_revision",
+              "plain_precise_link",
+              "uncertainty_calibration",
+              "actionability",
+              "efficiency"
+            ]
+          },
+          "score": {"type": "string", "enum": ["0", "1", "2", "NA"]},
+          "rationale": {"type": "string"},
+          "evidence": {"type": "string"}
+        },
+        "required": ["id", "score", "rationale", "evidence"],
+        "additionalProperties": false
+      }
+    },
+    "general_normalized_score": {"type": "number", "minimum": 0, "maximum": 1},
+    "feynman_specific_score": {"type": "number", "minimum": 0, "maximum": 1},
+    "confidence": {"type": "string", "enum": ["high", "medium", "low"]},
+    "summary": {"type": "string"}
+  },
+  "required": [
+    "overall_pass",
+    "hard_failures",
+    "expected_findings",
+    "dimensions",
+    "general_normalized_score",
+    "feynman_specific_score",
+    "confidence",
+    "summary"
+  ],
+  "additionalProperties": false
+}

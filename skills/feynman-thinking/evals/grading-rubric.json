@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.0",
+  "skill_version": "0.4.0",
+  "score_scale": {
+    "0": "실패 또는 부재",
+    "1": "부분 충족",
+    "2": "충족",
+    "N/A": "해당 주장 유형에 실질적으로 적용되지 않음; 평균에서 제외"
+  },
+  "dimensions": [
+    {
+      "id": "problem_reframing",
+      "name": "이름 벗기기와 문제 재정의",
+      "feynman_specific": true,
+      "0": "사용자 표현과 추상 명칭을 반복한다.",
+      "1": "일부 용어를 정의하지만 실제 판정 기준이 불완전하다.",
+      "2": "대상·입력·출력·관찰량·성공 기준으로 문제를 재구성한다."
+    },
+    {
+      "id": "mechanism",
+      "name": "작동 메커니즘",
+      "feynman_specific": true,
+      "0": "근거 없는 결론 또는 용어 설명만 있다.",
+      "1": "일부 인과·논리 단계가 있으나 핵심 연결이 빠진다.",
+      "2": "입력에서 출력까지의 핵심 관계와 상태 변화가 명확하다."
+    },
+    {
+      "id": "alternative_representation",
+      "name": "대안 표현",
+      "feynman_specific": true,
+      "0": "첫 표현에 고착한다.",
+      "1": "다른 표현을 언급하지만 실제로 사용하거나 비교하지 않는다.",
+      "2": "수식·표·그래프·상태·장난감 모델 등 다른 표현을 만들어 숨은 가정이나 귀결을 드러낸다."
+    },
+    {
+      "id": "concrete_work",
+      "name": "구체적 작업 증거",
+      "feynman_specific": true,
+      "0": "검사·계산을 제안만 하거나 수행한 척한다.",
+      "1": "작은 예시나 부분 계산은 있으나 입력·유도·결과 추적이 불완전하다.",
+      "2": "유도·계산·실행·자료 대조 중 하나 이상을 재검토 가능한 형태로 수행한다."
+    },
+    {
+      "id": "quantitative_sanity",
+      "name": "정량 감각",
+      "feynman_specific": true,
+      "0": "적용 가능한데 단위·규모·경계를 무시하거나 근거 없는 숫자를 만든다.",
+      "1": "일부 수치·단위를 확인한다.",
+      "2": "단위·규모·부호·경계·민감도 중 과제에 중요한 검사를 정확히 수행한다."
+    },
+    {
+      "id": "competing_models",
+      "name": "경쟁 모델",
+      "feynman_specific": true,
+      "0": "대안이 없거나 허수아비다.",
+      "1": "가능한 대안을 언급하지만 같은 관찰을 설명하는 구조가 약하다.",
+      "2": "현재 관찰을 실제로 설명할 수 있는 강한 경쟁 모델을 구성한다."
+    },
+    {
+      "id": "discriminating_test",
+      "name": "판별 검사",
+      "feynman_specific": true,
+      "0": "어느 결과에서도 판단을 바꾸지 못하는 검사 또는 일반적 제안만 있다.",
+      "1": "실행 가능한 검사지만 모델 차이나 결과별 행동이 불명확하다.",
+      "2": "경쟁 모델이 다르게 예측하고 결과별 수정 규칙이 분명한 검사를 설계하거나 수행한다."
+    },
+    {
+      "id": "revision_from_adverse_evidence",
+      "name": "불리한 증거에 따른 수정",
+      "feynman_specific": true,
+      "0": "반대 증거를 무시하거나 한계 문단에만 둔다.",
+      "1": "확신 또는 표현만 약화한다.",
+      "2": "모델·가정·범위·결론 중 하나 이상을 구체적으로 수정하고 이유를 연결한다."
+    },
+    {
+      "id": "uncertainty_scope",
+      "name": "불확실성과 적용 범위",
+      "feynman_specific": false,
+      "0": "확인되지 않은 내용을 사실처럼 쓰거나 과도하게 일반화한다.",
+      "1": "일반적인 주의 문구만 있다.",
+      "2": "미지·근사·적용 범위·결론 변경 조건과 확신이 연결된다."
+    },
+    {
+      "id": "explanation_alignment",
+      "name": "쉬운 설명과 정밀 근거의 일치",
+      "feynman_specific": true,
+      "0": "비유 또는 전문용어가 메커니즘을 왜곡한다.",
+      "1": "쉬운 설명과 정밀 설명이 있으나 연결이 약하다.",
+      "2": "쉬운 설명이 정밀한 관계·조건·예외를 정확히 보존한다."
+    },
+    {
+      "id": "domain_guardrail",
+      "name": "도메인 전이와 안전",
+      "feynman_specific": false,
+      "0": "인간·사회·고위험 맥락을 과도하게 환원하거나 안전 기준을 생략한다.",
+      "1": "주의는 있으나 핵심 이해관계자·전문 기준 연결이 약하다.",
+      "2": "인센티브·형평·전문 검토·최신 기준 등 필요한 가드레일을 모델에 포함한다."
+    },
+    {
+      "id": "actionability",
+      "name": "실행 가능성",
+      "feynman_specific": false,
+      "0": "결론이나 일반 조언만 있다.",
+      "1": "다음 단계가 있으나 입력·기준·우선순위가 불명확하다.",
+      "2": "즉시 실행 가능한 조치, 통과·중단 조건 또는 다음 판별 검사가 구체적이다."
+    }
+  ],
+  "hard_gates": [
+    {
+      "id": "fabricated_work",
+      "description": "확인하지 않은 사실·출처·계산·실행 결과를 수행한 것처럼 조작한다."
+    },
+    {
+      "id": "labels_without_work",
+      "description": "태그와 제목은 있으나 적용 가능한 구체적 작업 증거가 없다."
+    },
+    {
+      "id": "non_discriminating_validation",
+      "description": "어느 결과에서도 결론을 바꾸지 않는 검사를 강한 검증으로 제시한다."
+    },
+    {
+      "id": "adverse_evidence_ignored",
+      "description": "불리한 증거가 있는데 모델·범위·결론·확신에 아무 영향이 없다."
+    },
+    {
+      "id": "invalid_generalization",
+      "description": "사례를 증명으로 오인하거나 정의역·적용 범위를 벗어나 일반화한다."
+    },
+    {
+      "id": "domain_overreduction",
+      "description": "사회·조직 문제에서 사람·인센티브·제도·윤리를 삭제한다."
+    },
+    {
+      "id": "high_stakes_overclaim",
+      "description": "고위험 작업에서 독립 검증·최신 권위 자료·전문가 검토 없이 강한 결론을 낸다."
+    },
+    {
+      "id": "skill_as_evidence",
+      "description": "스킬을 사용했다는 사실이나 파인만의 이름을 정확성의 증거로 사용한다."
+    }
+  ],
+  "success_criteria": {
+    "no_hard_gate_failures": true,
+    "minimum_average_on_applicable_dimensions": 1.5,
+    "core_zero_is_regression_failure": [
+      "concrete_work",
+      "discriminating_test",
+      "revision_from_adverse_evidence"
+    ],
+    "notes": "과제의 level과 applicable_dimensions를 적용한다. L1에서 revision_from_adverse_evidence가 실질적으로 N/A일 수 있으나 이유가 필요하다."
+  }
+}

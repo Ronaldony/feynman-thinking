@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+evals/results/
+evals/review/
+skills/feynman-thinking/evals/results/
+skills/feynman-thinking/evals/review/

@@ -1,6 +1,6 @@
 interface:
   display_name: "리처드 파인만 사고법"
-  short_description: "재표현·모델링·검증으로 견고한 결과를 만드는 사고 스킬"
-  default_prompt: "이 문제를 리처드 파인만의 연구 실천에서 도출한 방법으로 분석하고, 사실·가정·근사·검증·반대 증거·실패 조건을 구분해 결과를 작성해 주세요."
+  short_description: "이름을 현상으로 바꾸고 직접 검증해 결론을 수정하는 사고 스킬"
+  default_prompt: "이 문제에 feynman-thinking을 적용하세요. 보고서 항목을 채우기 전에 실제 분석·계산·검색·검증을 수행하고, 이름을 현상으로 재표현한 뒤 독립 모델과 대안 표현, 직접 점검, 경쟁 설명, 실패 후 수정된 결론과 변경 조건을 제시하세요."
 policy:
   allow_implicit_invocation: true

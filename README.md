@@ -46,10 +46,4 @@ skills-ref validate .agents/skills/feynman-thinking
 npx skills add Ronaldony/feynman-thinking
 ```
 
-- 여러 스킬이 있을 때 원하는 스킬만 지정:
-
-```bash
-npx skills add Ronaldony/feynman-thinking --path skills/feynman-thinking
-```
-
 - 설치 후 Codex를 재시작하거나 새 세션을 열어 반영을 확인합니다.

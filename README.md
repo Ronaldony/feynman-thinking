@@ -13,10 +13,10 @@
 가장 간단한 설치 방법입니다.
 
 ```bash
-npx skills add Ronaldony/feynman-thinking
+npx skills add Ronaldony/feynman-thinking --skill feynman-thinking -a codex
 ```
 
-Codex 사용자 영역에 `feynman-thinking`만 설치하려면 다음 명령을 사용할 수 있습니다.
+스킬을 전역으로 설치하는 경우
 
 ```bash
 npx skills add Ronaldony/feynman-thinking --skill feynman-thinking -g -a codex

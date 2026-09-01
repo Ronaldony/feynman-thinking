@@ -1,6 +1,0 @@
-interface:
-  display_name: "리처드 파인만 사고법"
-  short_description: "재표현·모델링·검증으로 견고한 결과를 만드는 사고 스킬"
-  default_prompt: "이 문제를 리처드 파인만의 연구 실천에서 도출한 방법으로 분석하고, 사실·가정·근사·검증·반대 증거·실패 조건을 구분해 결과를 작성해 주세요."
-policy:
-  allow_implicit_invocation: true

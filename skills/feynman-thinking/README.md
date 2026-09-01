@@ -38,18 +38,22 @@ skills-ref validate .agents/skills/feynman-thinking
 - `evals/`: 발동 회귀 테스트
 - `scripts/validate_skill.py`: 표준 라이브러리 기반 로컬 구조 검사
 - `agents/openai.yaml`: 표시 이름과 암묵 호출 정책
-## npx skills로 설치
+## Install with npx skills
 
-- 현재 저장소 전체를 스킬 패키지로 추가:
-
-```bash
-npx skills add Ronaldony/feynman-thinking
-```
-
-- 여러 스킬이 있을 때 원하는 스킬만 지정:
+- Install this skill into current project:
 
 ```bash
-npx skills add Ronaldony/feynman-thinking --path skills/feynman-thinking
+npx skills add Ronaldony/feynman-thinking --skill feynman-thinking
 ```
 
-- 설치 후 Codex를 재시작하거나 새 세션을 열어 반영을 확인합니다.
+- Install to global agent profile:
+
+```bash
+npx skills add Ronaldony/feynman-thinking --skill feynman-thinking -g
+```
+
+- If you want to install all skills in the repo:
+
+```bash
+npx skills add Ronaldony/feynman-thinking --all
+```

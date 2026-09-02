@@ -19,6 +19,8 @@ $feynman-thinking을 사용해 이 제안서를 검토해.
 
 ## 설치
 
+이 저장소는 `skills/feynman-thinking/` 같은 중첩 패키지를 따로 두지 않습니다. **저장소 루트 자체가 `feynman-thinking` 스킬 패키지**이며, 루트의 `SKILL.md`가 스킬 명세의 진입점입니다.
+
 현재 프로젝트에 설치:
 
 ```bash
@@ -37,14 +39,14 @@ npx skills add Ronaldony/feynman-thinking --skill feynman-thinking -g -a codex
 npx skills list -g -a codex
 ```
 
-수동 설치는 `skills/feynman-thinking/` 폴더를 다음 위치 중 하나에 복사합니다.
+수동 설치할 때는 이 저장소의 스킬 패키지 내용을 다음 위치 중 하나의 `feynman-thinking/` 디렉터리로 복사합니다. 최소한 `SKILL.md`와 이 문서에서 참조하는 `agents/`, `assets/`, `references/`가 같은 상대 경로를 유지해야 합니다.
 
 ```text
 <repository-root>/.agents/skills/feynman-thinking/
 $HOME/.agents/skills/feynman-thinking/
 ```
 
-설치 후 새 Codex 세션을 열고 `$feynman-thinking`으로 명시 호출할 수 있습니다.
+설치 후 새 Codex 세션을 열고 `$feynman-thinking`으로 명시 호출할 수 있습니다. `agents/openai.yaml`은 암묵 호출도 허용하도록 설정되어 있습니다.
 
 ## 왜 필요한가
 
@@ -189,24 +191,30 @@ $feynman-thinking으로 이 개념을 전문용어 없이 설명해.
 
 ### 정적 검사
 
+저장소 루트에서 실행합니다.
+
 ```bash
-cd skills/feynman-thinking
 python scripts/validate_skill.py
 ```
 
 이는 frontmatter, 링크, 평가 데이터와 Python 문법을 검사합니다. AI가 실제로 스킬을 따르거나 결과가 좋아졌음을 증명하지는 않습니다.
 
-### A/B/C 행동 평가
+### A/B/C/D 행동 평가
 
-동일한 held-out 과제를 다음 조건에서 실행합니다.
+동일한 held-out 과제를 다음 네 조건에서 실행합니다.
 
-- `baseline`: 추가 사고 지침 없음
-- `generic`: 일반 비판적 사고 지침
-- `feynman`: `$feynman-thinking` 명시 호출
+- `baseline`: 스킬 미설치, 추가 사고 지침 없음
+- `generic`: 스킬 미설치, 일반 비판적 사고 지침
+- `feynman`: 스킬 설치, `$feynman-thinking` 명시 호출
+- `feynman-implicit`: 스킬 설치, 원문 과제만 전달하여 암묵 발동 검사
+
+저장소 루트에서 실행합니다.
 
 ```bash
-cd skills/feynman-thinking
-python scripts/run_evals.py --conditions baseline generic feynman --repeats 1
+python scripts/run_evals.py \
+  --conditions baseline generic feynman feynman-implicit \
+  --repeats 1
+
 python scripts/grade_evals.py --run-dir evals/results/<run-id>
 ```
 
@@ -218,26 +226,72 @@ python scripts/grade_evals.py --run-dir evals/results/<run-id>
 - 경쟁 모델을 구별하는 검사를 만들었는가?
 - 불리한 증거에 따라 결론을 수정했는가?
 
-모델 보조 채점은 최종 진실이 아닙니다. 개별 trace와 채점 근거를 함께 검토해야 합니다.
+모델 보조 채점은 최종 진실이 아닙니다. 개별 trace와 채점 근거를 함께 검토해야 합니다. 사람 검토용 조건 블라인드 패키지는 `scripts/prepare_blind_review.py`로 만들 수 있습니다.
 
 ## 저장소 구조
 
-`skills/feynman-thinking/`이 유일한 스킬 정본입니다.
+이 저장소는 **루트가 곧 설치 가능한 스킬 패키지**인 단일 정본 구조를 사용합니다. 별도의 `skills/feynman-thinking/` 복제본을 두지 않습니다.
 
 ```text
-README.md
-CHANGELOG.md
-skills/
-└── feynman-thinking/
-    ├── SKILL.md
-    ├── agents/openai.yaml
-    ├── assets/
-    ├── evals/
-    ├── references/
-    └── scripts/
+feynman-thinking/
+├── .github/
+│   └── workflows/
+│       └── validate.yml
+├── .gitignore
+├── README.md
+├── SKILL.md
+├── agents/
+│   └── openai.yaml
+├── assets/
+│   ├── approximation-ledger.md
+│   ├── final-report.md
+│   ├── model-card.md
+│   ├── problem-contract.md
+│   ├── unresolved-register.md
+│   └── verification-record.md
+├── evals/
+│   ├── README.md
+│   ├── grading-schema.json
+│   ├── reasoning-cases.jsonl
+│   └── trigger-cases.csv
+├── references/
+│   ├── evaluation.md
+│   ├── evidence-base.md
+│   ├── self-critique.md
+│   ├── validation-matrix.md
+│   └── workflow.md
+└── scripts/
+    ├── grade_evals.py
+    ├── prepare_blind_review.py
+    ├── run_evals.py
+    └── validate_skill.py
 ```
 
-루트와 패키지에 같은 스킬을 중복 보관하지 않아 문서 드리프트와 설치 후보 중복을 방지합니다.
+### 각 영역의 역할
+
+| 경로 | 역할 |
+|---|---|
+| `SKILL.md` | AI가 실제 작업에서 따라야 하는 발동 조건, 핵심 루프, 검증 규칙과 주장 범위를 정의하는 스킬 본체 |
+| `agents/openai.yaml` | 스킬의 표시 이름, 기본 프롬프트와 암묵 호출 허용 여부를 정의하는 OpenAI 에이전트 인터페이스 설정 |
+| `assets/` | 문제 계약, 모델 카드, 근사 원장, 검증 기록, 미해결 항목, 최종 보고서 등 복잡한 작업에서 필요할 때 사용하는 기록 템플릿 |
+| `references/` | 실행 흐름, 학술 근거, 검증 행렬, 자기비판 원칙, 행동 평가 설계를 상세히 설명하는 근거·운영 문서 |
+| `evals/` | 스킬이 실제 AI 행동을 바꾸는지 비교하기 위한 held-out 과제, 발동 사례와 채점 Schema. 생성 결과인 `evals/results/`는 Git에서 제외 |
+| `scripts/` | 스킬 정적 검증, 평가 실행, 모델 보조 채점, 조건 블라인드 사람 검토 패키지 생성을 담당하는 도구 |
+| `.github/workflows/validate.yml` | push와 pull request에서 저장소 검증을 자동화하기 위한 GitHub Actions workflow |
+| `README.md` | 사용자용 개요, 설치, 사용법, 평가 방법과 저장소 탐색 안내 |
+| `.gitignore` | Python 캐시와 평가 실행 결과처럼 버전 관리 대상이 아닌 생성물을 제외 |
+
+### 어떤 파일부터 읽어야 하나
+
+목적에 따라 다음 순서가 가장 빠릅니다.
+
+- **스킬을 사용하려면:** `README.md` → `SKILL.md`
+- **왜 이런 규칙인지 검토하려면:** `references/evidence-base.md` → `references/self-critique.md`
+- **구체적인 실행 프로토콜을 보려면:** `references/workflow.md` → `references/validation-matrix.md`
+- **스킬 효과를 검증하려면:** `evals/README.md` → `references/evaluation.md` → `scripts/run_evals.py`
+- **저장소 변경을 검증하려면:** `scripts/validate_skill.py`와 `.github/workflows/validate.yml`
+
+`assets/`는 매번 채워야 하는 양식이 아닙니다. `SKILL.md`의 핵심 루프를 실제로 수행한 뒤, 복잡도와 감사 가능성 때문에 기록이 필요할 때 선택적으로 사용합니다.
 
 ## 학술적 귀속
 
@@ -245,19 +299,20 @@ skills/
 
 - **[E] 명시 근거**: 파인만이 강연·저술에서 직접 설명한 의심, 불확실성과 과학적 진실성
 - **[P] 논문 실천 근거**: 연구 논문에서 관찰되는 직접 계산, 재표현, 근사·보정, 실험 비교와 열린 문제 관리
-- **[X] 현대적 확장**: 위험 기반 깊이, 소프트웨어 테스트, 정책 윤리 가드레일과 A/B/C 평가 체계
+- **[X] 현대적 확장**: 위험 기반 깊이, 소프트웨어 테스트, 정책 윤리 가드레일과 A/B/C/D 평가 체계
 
-자세한 근거와 일반화 한계는 [학술 근거 지도](skills/feynman-thinking/references/evidence-base.md)에 기록되어 있습니다.
+자세한 근거와 일반화 한계는 [학술 근거 지도](references/evidence-base.md)에 기록되어 있습니다.
 
 ## 자세한 문서
 
-- [스킬 명세](skills/feynman-thinking/SKILL.md)
-- [상세 실행 흐름](skills/feynman-thinking/references/workflow.md)
-- [주장 유형별 검증 행렬](skills/feynman-thinking/references/validation-matrix.md)
-- [학술 근거 지도](skills/feynman-thinking/references/evidence-base.md)
-- [자기비판 및 화물 숭배 방지](skills/feynman-thinking/references/self-critique.md)
-- [행동 평가와 회귀 테스트](skills/feynman-thinking/references/evaluation.md)
-- [평가 과제](skills/feynman-thinking/evals/reasoning-cases.jsonl)
+- [스킬 명세](SKILL.md)
+- [상세 실행 흐름](references/workflow.md)
+- [주장 유형별 검증 행렬](references/validation-matrix.md)
+- [학술 근거 지도](references/evidence-base.md)
+- [자기비판 및 화물 숭배 방지](references/self-critique.md)
+- [행동 평가와 회귀 테스트](references/evaluation.md)
+- [평가 자산 안내](evals/README.md)
+- [평가 과제](evals/reasoning-cases.jsonl)
 
 ## 이 스킬이 하지 않는 일
 
